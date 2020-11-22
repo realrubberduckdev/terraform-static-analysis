@@ -42,6 +42,7 @@ jobs:
           # Output filename including optional path
           #output: # optional
       - name: Upload a Build Artifact
+        if: ${{ always() }}
         uses: actions/upload-artifact@v2.2.1
         with:
           # Artifact name
