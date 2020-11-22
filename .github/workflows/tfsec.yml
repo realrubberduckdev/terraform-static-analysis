@@ -19,13 +19,16 @@ jobs:
   static-code-analysis:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
       - name: Run TFSec
-        run: pwsh -command ".\$GITHUB_WORKSPACE\RunTFSec.ps1"
-        
+        shell: pwsh
+        run: |
+          ./RunTFSec.ps1
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.5
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: ./tfsec-result.xml        
