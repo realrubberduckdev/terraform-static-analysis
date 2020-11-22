@@ -19,33 +19,16 @@ jobs:
   static-code-analysis:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
       - name: Run TFSec
         shell: pwsh
         run: |
           ./RunTFSec.ps1
-      - name: XUnit Viewer
-        # always run, otherwise you'll only see results for passing builds
-        if: ${{ always() }}
-        # You may pin to the exact commit or the version.
-        # uses: AutoModality/action-xunit-viewer@84fcb7a680f68593da2c04d47332f163d5a1957b
-        uses: AutoModality/action-xunit-viewer@v1.0.1
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.5
+        if: always()
         with:
-          # File/Folder of test results
-          results: "./tfsec-result.xml"
-          # Output filename including optional path
-          #output: # optional
-      - name: Upload a Build Artifact
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2.2.1
-        with:
-          # Artifact name
-          name: tfsec-result
-          # A file, directory or wildcard pattern that describes what to upload
-          path: "./index.html"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: ./tfsec-result.xml        
