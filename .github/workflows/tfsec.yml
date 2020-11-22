@@ -48,4 +48,4 @@ jobs:
           # Artifact name
           name: tfsec-result
           # A file, directory or wildcard pattern that describes what to upload
-          path: /github/workspace/index.html
+          path: "./index.html"
