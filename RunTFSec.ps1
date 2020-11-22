@@ -1,1 +1,1 @@
-docker run --rm -it -v "$(pwd):/src" liamg/tfsec /src --format JUnit
+docker run --rm -v "$(pwd):/src" liamg/tfsec /src --format JUnit | Out-File tfsec-result.xml
