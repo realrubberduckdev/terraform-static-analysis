@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job
   static-code-analysis:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,7 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run TFSec
-        run: pwsh -command ".\$GITHUB_WORKSPACE\RunTFSec.ps1"
+        shell: pwsh
+        run: |
+          .\$GITHUB_WORKSPACE\RunTFSec.ps1
       - name: XUnit Viewer
         # always run, otherwise you'll only see results for passing builds
         if: ${{ always() }}
