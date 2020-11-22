@@ -38,7 +38,7 @@ jobs:
         uses: AutoModality/action-xunit-viewer@v1.0.1
         with:
           # File/Folder of test results
-          results: "./$GITHUB_WORKSPACE/tfsec-result.xml"
+          results: "./tfsec-result.xml"
           # Output filename including optional path
           #output: # optional
         
